@@ -1,0 +1,4 @@
+# .gitignore
+*.local.md
+secrets/
+.env
