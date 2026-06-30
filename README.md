@@ -4,27 +4,33 @@ Personal agent configuration for Christian.
 This repository holds your **global** agent instructions, voice profile, opinions, and skills.
 It is designed to live at `~/.agents` on your machine.
 
-Individual projects keep their **own** `AGENTS.md` files with repo-specific context.
+Individual projects keep their **own** `AGENTS.md` at the repo root plus a `.agents/` directory for references and project-only skills.
 Agents should always read the global file first, then the project file for whatever repo you are working in.
 
 ## Two layers of instructions
 
 ```text
-~/.agents/AGENTS.md          Global instructions (this repo)
+~/.agents/AGENTS.md                    Global instructions (this repo)
         +
-~/code/project-1/AGENTS.md  Project-specific instructions (each repo)
+~/code/project-1/AGENTS.md           Project index (each repo)
+~/code/project-1/.agents/references/   Heavy project docs (read on demand)
+~/code/project-1/.agents/skills/       Project-only skills
         =
-Both apply when working in that project
+Both global and project layers apply when working in that project
 ```
 
 | Layer | Location | What it covers |
 | --- | --- | --- |
 | **Global** | [`~/.agents/AGENTS.md`](./AGENTS.md) | Personal standards that apply everywhere: engineering quality, communication style, references to `VOICE.md` and `OPINIONS.md`. |
-| **Project** | `AGENTS.md` in each repo root | That project's architecture, build commands, technical choices, and what is done vs still to do. |
+| **Project** | `AGENTS.md` in each repo root | Thin index: orientation, commands, pointers into `.agents/`. |
+| **Project** | `.agents/references/` in each repo | Architecture, stack, conventions, runbook, decisions. |
+| **Project** | `.agents/skills/` in each repo | Skills that apply only in that repository. |
 
 Project `AGENTS.md` files are **not** symlinks to this repo.
 They are real, version-controlled files owned by each project.
 Edit global preferences here in `~/.agents`; edit project context in the project itself.
+
+Use the [`project-agents`](./skills/project-agents/SKILL.md) skill to bootstrap or update project agent structure in any repo.
 
 When both files exist, agents combine them.
 Project-level instructions take precedence where they conflict, the same way nested `AGENTS.md` files work within a repo.
@@ -132,21 +138,31 @@ You can symlink those to the same file if you use them:
 
 Only set up the tools you actually use.
 
-### 3. Add AGENTS.md to your projects
+### 3. Add agent files to your projects
 
-Each project repo should have its own `AGENTS.md` at the repo root.
-Write project-specific content there: what the project is, how to build and test it, architecture decisions, and what still needs to be done.
+Each project repo should have:
+
+- `AGENTS.md` at the repo root (thin index)
+- `.agents/references/` for architecture, stack, conventions, runbook, and decisions
+- `.agents/skills/` for project-only skills (optional until needed)
+
+Ask an agent to use the **project-agents** skill, or bootstrap manually:
 
 ```bash
-# Example: bootstrap a new project file (do not symlink to ~/.agents)
 cd ~/code/project-1
-# Create AGENTS.md with project-specific instructions, then commit it
-git add AGENTS.md
-git commit -m "Add project AGENTS.md for agent onboarding"
+# Agent with project-agents skill will scaffold AGENTS.md and .agents/
+git add AGENTS.md .agents/
+git commit -m "Add project agent structure for agent onboarding"
 ```
 
 Do **not** symlink a project's `AGENTS.md` to `~/.agents/AGENTS.md`.
 The global file and the project file serve different purposes and should stay separate.
+
+Validate an existing project:
+
+```bash
+bash ~/.agents/skills/project-agents/scripts/validate-project-agents.sh /path/to/project
+```
 
 ### 4. Install or update skills
 
@@ -184,10 +200,14 @@ Installed skills and their provenance are recorded in [`.skill-lock.json`](./.sk
 ~/AGENTS.md  -->  ~/.agents/AGENTS.md   # One-time user-level symlink
 
 ~/code/project-1/
-└── AGENTS.md                           # Project-specific (real file, in git)
+├── AGENTS.md                           # Project index (real file, in git)
+└── .agents/
+    ├── references/
+    └── skills/
 
 ~/code/project-2/
-└── AGENTS.md                           # Different project, different file
+├── AGENTS.md                           # Different project, different file
+└── .agents/
 ```
 
 When you open `project-1` in Cursor:
@@ -237,7 +257,8 @@ Project `AGENTS.md` files are updated independently in each repo.
 | Clone this repo | `git clone <repository-url> ~/.agents` |
 | Wire global AGENTS.md (macOS / Linux) | `ln -s ~/.agents/AGENTS.md ~/AGENTS.md` |
 | Wire global AGENTS.md (Windows PowerShell) | `New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\AGENTS.md" -Target "$env:USERPROFILE\.agents\AGENTS.md"` |
-| Add project instructions | Create `AGENTS.md` in the project root (not a symlink) |
+| Bootstrap project agent files | Use the `project-agents` skill or create `AGENTS.md` + `.agents/` manually |
+| Validate project structure | `bash ~/.agents/skills/project-agents/scripts/validate-project-agents.sh .` |
 | Find a skill | `npx skills find <query>` |
 | Install a skill | `npx skills add <owner/repo@skill> -g -y` |
 | List installed skills | `npx skills list` |
