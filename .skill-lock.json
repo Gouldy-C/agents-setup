@@ -30,13 +30,13 @@
       "updatedAt": "2026-06-29T19:38:25.822Z"
     },
     "no-mistakes": {
-      "source": "kunchenguid/axi",
+      "source": "kunchenguid/no-mistakes",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/kunchenguid/axi.git",
-      "skillPath": ".agents/skills/no-mistakes/SKILL.md",
-      "skillFolderHash": "5b8c29b50feb448d016f7ea986fbe3ae318de140",
+      "sourceUrl": "https://github.com/kunchenguid/no-mistakes.git",
+      "skillPath": "skills/no-mistakes/SKILL.md",
+      "skillFolderHash": "030d68cca69c863ebb3bc3af7342fbe166a16d65",
       "installedAt": "2026-06-29T19:38:25.823Z",
-      "updatedAt": "2026-06-29T19:38:25.823Z"
+      "updatedAt": "2026-07-01T18:46:53.102Z"
     },
     "gh-axi": {
       "source": "kunchenguid/gh-axi",
@@ -83,9 +83,34 @@
       "skillFolderHash": "a22aa2a0a64d7d4b7b59bbddbdb865fedfb40d9c",
       "installedAt": "2026-06-30T17:23:56.327Z",
       "updatedAt": "2026-06-30T17:23:56.327Z"
+    },
+    "grill-with-docs": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
+      "skillFolderHash": "21adba95de7d93065d9fec725ddf37f871e01d05",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-01T16:47:13.141Z",
+      "updatedAt": "2026-07-01T16:47:13.141Z"
     }
   },
   "dismissed": {
     "findSkillsPrompt": true
-  }
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "antigravity-cli",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-code-cli",
+    "opencode",
+    "warp",
+    "zed"
+  ]
 }
