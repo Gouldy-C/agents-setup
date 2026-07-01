@@ -267,7 +267,7 @@ main() {
   mkdir -p "$TEST_ROOT/.agents/references"
   echo "# Architecture" > "$TEST_ROOT/$new_ref"
   register_reference_in_agents_md "$new_ref" "Structural changes, new modules, data flow"
-  require_contains "$TEST_ROOT/AGENTS.md" "`.agents/references/ARCHITECTURE.md`" "Test 4a: new reference file registered in AGENTS.md table"
+  require_contains "$TEST_ROOT/AGENTS.md" '.agents/references/ARCHITECTURE.md' "Test 4a: new reference file registered in AGENTS.md table"
   require_contains "$TEST_ROOT/AGENTS.md" "Structural changes, new modules, data flow" "Test 4b: AGENTS.md row includes when-to-read guidance"
 
   echo
